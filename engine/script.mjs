@@ -1,20 +1,32 @@
-import { functions } from './functions.mjs'
-import { execute } from './exeModel.mjs'
+import { execute, values } from './exeModel.mjs'
 
-const values = []
+for(let i = 0; i < execute.length; i++) {
 
-execute.forEach((execution) => {
-    if(execution.id != 0){
-      const valuesForExecution = execution.parameters.map(
-        (parameter) => values.find((element) => element.name == parameter).value
-      )
-      functions[execution.id](...valuesForExecution)
+  switch (execute[i].id) {
+    case 0:
+      declareVar(execute[i])
+      break;
+        
+    case 1:
+      console.log(values.find(element => element.name == execute[i].parameters[0]).value)
+      break
+
+    case 2:
+      i += conditionFunction(execute[i])
+    default:
+      break;
+  }
+}
+
+function declareVar(execution) {
+  const found_index = values.findIndex((element)=> element.name == execution.parameters[0])
+    if(found_index != -1) {
+      values[found_index].value = execution.parameters[1]
     }else{
-      const found_index = values.findIndex((element)=> element.name == execution.parameters[0])
-      if(found_index != -1) {
-        values[found_index].value = execution.parameters[1]
-      }else{
-        values.push({name: execution.parameters[0], value: execution.parameters[1]})
-      }
+      values.push({name: execution.parameters[0], value: execution.parameters[1]})
     }
-})
+}
+
+function conditionFunction(execution) {
+  return execution.parameters[0] ? 0 : execution.parameters[1]
+}
