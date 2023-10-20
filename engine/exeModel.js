@@ -1,3 +1,3 @@
-export const execute = [{id: 0, parameters: ['message']}]
+export const execute = [{id: 1, parameters: ['message', ['hello', 'world']]}, {id: 0, parameters: ['message']}]
 
-export const values = [{name: 'message', value: 'Hello World'}]
+export const values = []
