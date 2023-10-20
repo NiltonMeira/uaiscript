@@ -1,4 +1,4 @@
-import { execute, values } from './exeModel.mjs'
+import { execute, values } from './output.mjs'
 
 for(let i = 0; i < execute.length; i++) {
 
@@ -13,6 +13,7 @@ for(let i = 0; i < execute.length; i++) {
 
     case 2:
       i += conditionFunction(execute[i])
+      
     default:
       break;
   }
