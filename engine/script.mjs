@@ -1,5 +1,7 @@
 import { functions } from './functions.mjs'
-import { execute, values } from './exeModel.mjs'
+import { execute } from './exeModel.mjs'
+
+const values = []
 
 execute.forEach((execution) => {
     if(execution.id != 0){
@@ -8,6 +10,11 @@ execute.forEach((execution) => {
       )
       functions[execution.id](...valuesForExecution)
     }else{
-      values.push({name: execution.parameters[0], value: execution.parameters[1]})
+      const found_index = values.findIndex((element)=> element.name == execution.parameters[0])
+      if(found_index != -1) {
+        values[found_index].value = execution.parameters[1]
+      }else{
+        values.push({name: execution.parameters[0], value: execution.parameters[1]})
+      }
     }
 })
